@@ -1,0 +1,10 @@
+export const SET_LOADING="SET_LOADING"
+export const SET_ERROR="SET_ERROR"
+export const AUTH="AUTH"
+export const LOGOUT="LOGOUT"
+export const SET_CARDS="SET_CARDS"
+export const SET_REVEALS="SET_REVEALS"
+export const SET_MATCH="SET_MATCH"
+export const CLEAR_GAME='CLEAR_GAME'
+export const SET_PONTS='SET_PONTS'
+export const INITIAL_PONTS='INITIAL_PONTS'
