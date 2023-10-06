@@ -29,9 +29,9 @@ const AuthForm = () => {
      dispatch(resetPassword(form))
   }
   return (
-    <div className='w-[450px] p-4 rounded-lg bg-slate-900'>
+    <div className='w-[450px] p-4 rounded-lg '>
     <form onSubmit={handleSubmit}>
-    <h2 className="text-white font-bold text-center text-4xl">{authType==='login' && "Login to "}{authType==='signup' && 'Sign Up on '}<span className='purple_gradient text-center'>Aerospace</span></h2>
+    <h2 className="text-white font-bold text-center text-4xl">{authType==='login' && "Login to "}{authType==='signup' && 'Sign Up on '}<span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-600 to-yellow-400 text-center'>Match Up</span></h2>
     <div className="flex gap-2 justify-center text-white px-5 py-2.5 text-sm leading-5  font-semibold cursor-pointer" onClick={()=>setAuthType(authType==='login'?'signup':'login')}>
     <span>{authType==='login' ?"Don't have an account yet ?":"Already have an account ?"}</span>
     <span className=' text-sky-500 hover:text-sky-300'>{authType==='login'? 'Sign up':'Sign In'} </span>

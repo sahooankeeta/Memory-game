@@ -1,11 +1,11 @@
 module.exports.items=[
     {
         "name": "2C",
-        "image": ""
+        "image": "https://i.ibb.co/fddL5GD/2C.png"
     },
     {
         "name": "3C",
-        "image": ""
+        "image": "https://i.ibb.co/tYjc3P6/3C.png"
     },
     {
         "name": "4C",
@@ -33,31 +33,31 @@ module.exports.items=[
     },
     {
         "name": "10C",
-        "image": ""
+        "image": "https://i.ibb.co/jRgrq6Z/10C.png"
     },
     {
         "name": "KC",
-        "image": ""
+        "image": "https://i.ibb.co/5R2bK2M/KC.png"
     },
     {
         "name": "QC",
-        "image": ""
+        "image": "https://i.ibb.co/CVTLnXq/QC.png"
     },
     {
         "name": "AC",
-        "image": ""
+        "image": "https://i.ibb.co/bJnvx27/AC.png"
     },
     {
         "name": "JC",
-        "image": ""
+        "image": "https://i.ibb.co/QdZsXv1/JC.png"
     },
     {
         "name": "2H",
-        "image": ""
+        "image": "https://i.ibb.co/6BMZpMf/2H.png"
     },
     {
         "name": "3H",
-        "image": ""
+        "image": "https://i.ibb.co/yyKFspz/3H.png"
     },
     {
         "name": "4H",
@@ -85,31 +85,31 @@ module.exports.items=[
     },
     {
         "name": "10H",
-        "image": ""
+        "image": "https://i.ibb.co/nk8MK4v/10H.png"
     },
     {
         "name": "KH",
-        "image": ""
+        "image": "https://i.ibb.co/hV65PVH/KH.png"
     },
     {
         "name": "QH",
-        "image": ""
+        "image": "https://i.ibb.co/MP7XNtY/QH.png"
     },
     {
         "name": "AH",
-        "image": ""
+        "image": "https://i.ibb.co/ykWqSn7/AH.png"
     },
     {
         "name": "JH",
-        "image": ""
+        "image": "https://i.ibb.co/bXCw3Sn/JH.png"
     },
     {
         "name": "2D",
-        "image": ""
+        "image": "https://i.ibb.co/Wsg5wdY/2D.png"
     },
     {
         "name": "3D",
-        "image": ""
+        "image": "https://i.ibb.co/2NzQCL1/3D.png"
     },
     {
         "name": "4D",
@@ -137,31 +137,31 @@ module.exports.items=[
     },
     {
         "name": "10D",
-        "image": ""
+        "image": "https://i.ibb.co/6rqD5ZZ/10D.png"
     },
     {
         "name": "KD",
-        "image": ""
+        "image": "https://i.ibb.co/n8CyD1K/KD.png"
     },
     {
         "name": "QD",
-        "image": ""
+        "image": "https://i.ibb.co/dJbz9jy/QD.png"
     },
     {
         "name": "AD",
-        "image": ""
+        "image": "https://i.ibb.co/q7X6kLZ/AD.png"
     },
     {
         "name": "JD",
-        "image": ""
+        "image": "https://i.ibb.co/pzgCXxY/JD.png"
     },
     {
         "name": "2S",
-        "image": ""
+        "image": "https://i.ibb.co/GC3wT1n/2S.png"
     },
     {
         "name": "3S",
-        "image": ""
+        "image": "https://i.ibb.co/Q8WX4YM/3S.png"
     },
     {
         "name": "4S",
@@ -189,22 +189,22 @@ module.exports.items=[
     },
     {
         "name": "10S",
-        "image": ""
+        "image": "https://i.ibb.co/3Yy6zL9/10S.png"
     },
     {
         "name": "KS",
-        "image": ""
+        "image": "https://i.ibb.co/hdBktFj/KS.png"
     },
     {
         "name": "QS",
-        "image": ""
+        "image": "https://i.ibb.co/6DqfZ2c/QS.png"
     },
     {
         "name": "AS",
-        "image": ""
+        "image": "https://i.ibb.co/MCVWZpw/AS.png"
     },
     {
         "name": "JS",
-        "image": ""
+        "image": "https://i.ibb.co/vkr7LWt/JS.png"
     }
 ]

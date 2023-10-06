@@ -1,9 +1,4 @@
-.grid{
-  display: flex;
-  flex-wrap: wrap;
-  justify-items: center;
-  gap:20px;
-}
+
 /* @keyframes disappear {
   0%   {transform: rotate(45deg);}
   25%  {transform: rotate(90deg) scale(0.7);}
@@ -21,9 +16,7 @@
   50%  {transform: scale(0.5);opacity: 0.5; }
   100% {transform: scale(1);opacity: 1;}
 }
-.purple_gradient {
-  @apply bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-500 bg-clip-text text-transparent;
-}
+
 .hide{
   animation: disappear 0.5s forwards;
 }
@@ -43,12 +36,16 @@
 .btn:hover{
   background-color: rgb(93, 2, 158);
 }
+.sentence-case::first-letter{
+  text-transform: capitalize;
+}
 .flip-card {
   background-color: transparent;
   width: 100px;
   height: 150px;
   overflow: hidden;
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  perspective: 1000px; 
+  border-radius: 5px;
 }
 
 /* This container is needed to position the front and back side */
