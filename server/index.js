@@ -8,7 +8,8 @@ dotenv.config()
 
 const port = process.env.PORT || 8000;
 const app = express();
-const http = require('http').Server(app);
+const http = require('http').createServer(app);
+const { Server } = require('socket.io'); 
 const DB = process.env.DB.replace("<password>", process.env.PASSWORD);
 //connect mongoose and express
 mongoose.connect(DB).then((con) => {
@@ -18,7 +19,7 @@ mongoose.connect(DB).then((con) => {
 let level=3
 app.use(express.json())
 app.use(cors());
-const socketIO = require('socket.io')(http, {
+const socketIO = new Server(http, {
   origins:'*'
 });
 const shuffle=(arr)=>{
