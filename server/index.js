@@ -24,8 +24,7 @@ const socketIO = new Server(http, {
   origin:'*',
   transports:['websocket'],
   credentials:true,
- },
-  allowEIO4:true
+ }
 },
 
 );
