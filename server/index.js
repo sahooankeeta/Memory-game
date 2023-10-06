@@ -21,10 +21,9 @@ app.use(express.json())
 app.use(cors());
 const socketIO = new Server(http, {
  cors:{
-  origin:'*',
-  transports:['websocket'],
-  credentials:true,
- }
+  origin:process.env.CLIENT_URL, 
+ },
+ 
 },
 
 );
