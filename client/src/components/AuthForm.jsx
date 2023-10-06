@@ -18,7 +18,7 @@ const AuthForm = () => {
   }
   const handleSubmit=async (e)=>{
     e.preventDefault()
-    console.log(form)
+    //console.log(form)
     if(authType==='signup')
       dispatch(signup(form))
     if(authType==='login')

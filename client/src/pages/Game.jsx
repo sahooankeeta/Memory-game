@@ -15,7 +15,7 @@ const Game=({socket})=>{
    const [gameOverText,setGameOverText]=useState()
    const [askRestart,setAskRestart]=useState(false)
    const [copied,setCopied]=useState(false)
-   console.log(gameOverText)
+   //console.log(gameOverText)
      const handleClick=(card)=>{
       if(turnIndex!==-1 )
       socket.emit('flip_card',{card,room,name:user.name})

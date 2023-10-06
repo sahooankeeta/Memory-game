@@ -6,8 +6,11 @@ const GameHome = ({socket}) => {
     const [roomId,setRoomId]=useState()
     const user=useSelector(state=>state.authData)
     const gotoRoom=(roomId)=>{
-      socket.emit("join_room",{name:user.name,room:roomId,userId:user._id})
+      if(roomId)
+      {
+        socket.emit("join_room",{name:user.name,room:roomId,userId:user._id})
       navigate(`/game/${roomId}`)
+    }
     }
      const handleStart=()=>{
       gotoRoom(''+Date.now())

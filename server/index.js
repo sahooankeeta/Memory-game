@@ -50,7 +50,7 @@ socketIO.on('connection', (socket) => {
     allUsers.push({userId,name,room})
     
     let roomUsers=allUsers.filter(i=>i.room==room)
-    console.log("room",roomUsers)
+    //console.log("room",roomUsers)
     socketIO.sockets.in(room).emit('set_players', roomUsers);
     //console.log(name,' has joined room ',room)
     // users.push({name,room,socketId:socket.id})
@@ -102,14 +102,14 @@ socketIO.on('connection', (socket) => {
     });
   })
   socket.on('restart',(data)=>{
-    console.log("restart",data)
+    //console.log("restart",data)
     socket.to(data.room).emit('restart_permission', {
       message: `restart ?`,
     });
   
   })
   socket.on("permission_response",(data)=>{
-    console.log(data)
+    //console.log(data)
     const {room,response}=data
     if(response)
     {level=generateLevel()
