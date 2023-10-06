@@ -68,6 +68,9 @@ export const logout=(navigate)=>(dispatch)=>{
 export const setCards=(data)=>(dispatch)=>{
   dispatch({type:actionType.SET_CARDS,payload:data})
 }
+export const setLevel=(data)=>(dispatch)=>{
+  dispatch({type:actionType.SET_LEVEL,payload:data})
+}
 export const setReveals=(data)=>(dispatch)=>{
   dispatch({type:actionType.SET_REVEALS,payload:data})
 }

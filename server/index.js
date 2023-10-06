@@ -17,6 +17,9 @@ mongoose.connect(DB).then((con) => {
 })
 .catch(err => console.log(err.message));
 let level=3
+function generateLevel(){
+  return Math.floor(Math.random()*3)+3
+}
 app.use(express.json())
 app.use(cors());
 const socketIO = new Server(http, {
@@ -61,7 +64,7 @@ socketIO.on('connection', (socket) => {
   })
    if(clientSize==2)
    {
-    
+    level=generateLevel()
      cards=getCards(level)
     //  roomUsers=[]
     //  roomUsers=users.filter(i=>i.room==room)
@@ -70,7 +73,8 @@ socketIO.on('connection', (socket) => {
     socket.to(room).emit('message', {
       message: `${name} has joined the room`,
       timestamp:new Date(),
-      cards
+      cards,
+      level
     });
     
     socket.emit('message', {
@@ -107,11 +111,14 @@ socketIO.on('connection', (socket) => {
   socket.on("permission_response",(data)=>{
     console.log(data)
     const {room,response}=data
-    
+    if(response)
+    {level=generateLevel()
     socketIO.sockets.in(room).emit('get_cards_response', {
       message: `new cards`,
-      cards:getCards(level)
+      cards:getCards(level),
+      level
     });
+  }
   })
   socket.on('switch_turn',(data)=>{
     const {room}=data

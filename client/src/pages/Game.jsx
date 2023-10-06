@@ -2,20 +2,20 @@ import { useState,useEffect } from 'react';
 import Confetti from 'react-confetti'
 import { useSelector,useDispatch } from 'react-redux';
 import { useNavigate,useParams } from 'react-router-dom';
-import { setCards,setReveals,setMatch,clearGame,setPoints, initialPoints } from '../actions/auth';
+import { setCards,setLevel,setReveals,setMatch,clearGame,setPoints, initialPoints } from '../actions/auth';
 const Game=({socket})=>{
   const {roomId:room}=useParams()
   const dispatch=useDispatch()
   const navigate=useNavigate()
-  const {authData:user,cards=[],reveals=[],match=[],users=[]}=useSelector(state=>state)
-  // console.log(users)
+  const {authData:user,cards=[],reveals=[],match=[],users=[],level=3}=useSelector(state=>state)
+   //console.log(level)
    const [turnIndex,setTurnIndex]=useState(-1)
    const [showConfetti,setShowConfetti]=useState(false)
    const [isGameOver,setIsGameOver]=useState(false)
    const [gameOverText,setGameOverText]=useState()
    const [askRestart,setAskRestart]=useState(false)
    const [copied,setCopied]=useState(false)
-   const level=3
+   console.log(gameOverText)
      const handleClick=(card)=>{
       if(turnIndex!==-1 )
       socket.emit('flip_card',{card,room,name:user.name})
@@ -31,10 +31,10 @@ const Game=({socket})=>{
          setTimeout(()=>{
            let card1=reveals[0].split('-')
            let card2=card.split('-')
-           console.log(card1,card2)
+           //console.log(card1,card2)
            if(card1[0]===card2[0])
             {
-              console.log("MATCH")
+             // console.log("MATCH")
               if(turnIndex>-1)
               socket.emit("update_points",{userId:user._id,room,name:user.name})
                dispatch(setMatch([...match,+card1[1],+card2[1]]))
@@ -58,7 +58,7 @@ const Game=({socket})=>{
       }
      }
      const restart=()=>{
-      console.log('restart clicked')
+      //console.log('restart clicked')
       socket.emit('restart',{room})
       // let t=shuffle(items).slice(0,level)
       // setCards(shuffle([...t,...t]))
@@ -76,12 +76,12 @@ const Game=({socket})=>{
     navigate("/")
      }
      const handlePermission=(value)=>{
-      console.log("permission",value)
+      //console.log("permission",value)
       socket.emit("permission_response",{room,response:value})
        setAskRestart(false)
      }
 
-  console.log(turnIndex)
+ // console.log(turnIndex)
   // console.log(cards)
  useEffect(()=>{
   if(isGameOver)
@@ -95,20 +95,23 @@ const Game=({socket})=>{
  
  useEffect(() => {
   socket.on("turn",(data)=>{
-    console.log(data)
+    //console.log(data)
     setTurnIndex(data.turnIndex)
   })
   socket.on('message', (data) => {
-    console.log(data);
+    //console.log(data);
     if(data.cards?.length>0)
+    {
      dispatch(setCards(data.cards))
+     dispatch(setLevel(data.level))
+    }
   });
   socket.on("set_players",(data)=>{
-    console.log("players",data)
+   // console.log("players",data)
     dispatch(initialPoints(data))
   })
  socket.on('flip_card_response',(data)=>{
-  console.log(data)
+  //console.log(data)
   handleReveal(data.card)
  })
  socket.on('switch_turn_response',(data)=>{
@@ -118,17 +121,18 @@ const Game=({socket})=>{
   setTurnIndex(-1)
  })
  socket.on("update_points_response",(data)=>{
-  console.log(data)
+  //console.log(data)
       
   dispatch(setPoints(data))
  })
  socket.on('restart_permission',(data)=>{
-  console.log(data)
+ // console.log(data)
   setAskRestart(true)
  })
  socket.on('get_cards_response',(data)=>{
   setIsGameOver(false)
   dispatch(setCards(data.cards))
+  dispatch(setLevel(data.level))
   setGameOverText(null)
  })
 
@@ -194,7 +198,7 @@ const Game=({socket})=>{
   
      
       
-    {gameOverText && <div  class="sentence-case font-extrabold text-transparent zoomIn text-7xl md:text-9xl bg-clip-text bg-gradient-to-r from-purple-400 via-pink-600 to-yellow-400 leading-loose text-center">{gameOverText}</div>}
+    {(isGameOver && gameOverText) && <div  class="sentence-case font-extrabold text-transparent zoomIn text-7xl md:text-9xl bg-clip-text bg-gradient-to-r from-purple-400 via-pink-600 to-yellow-400 leading-loose text-center">{gameOverText}</div>}
       <div className='flex flex-wrap gap-3 my-6 justify-center'>
       {cards.map((item,index)=><div key={index} onClick={()=>handleClick(`${item.name}-${index}`)} className={`flip-card ${match.includes(index)?'hide':''} ${(reveals.includes(`${item.name}-${index}`)) ? 'reveal':''}`}>
   <div className="flip-card-inner">

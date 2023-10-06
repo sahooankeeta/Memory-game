@@ -3,6 +3,7 @@ const initialState={
   error:null,
   users:[],
   cards:[],
+  level:3,
   reveals:[],
   match:[],
   points:{},
@@ -27,6 +28,9 @@ export const reducers =(state = initialState, {type,payload}) => {
         localStorage.setItem('reveals', JSON.stringify([]))
         localStorage.setItem('match', JSON.stringify([]))
         return {...state,cards:payload,users:resetPoints,reveals:[],match:[]}
+      case actionType.SET_LEVEL:
+        localStorage.setItem('level',JSON.stringify(payload))
+        return {...state,level:payload}
       case actionType.SET_REVEALS:
         localStorage.setItem('reveals', JSON.stringify(payload))
         return {...state,reveals:payload}
@@ -46,11 +50,12 @@ export const reducers =(state = initialState, {type,payload}) => {
         localStorage.removeItem('reveals')
         localStorage.removeItem('match')
         localStorage.removeItem('users')
-        return {...state,cards:[],reveals:[],match:[],users:[]}
+        return {...state,cards:[],reveals:[],match:[],users:[],level:3}
       default:
         return {...state,
           authData:localStorage.getItem('profile')?JSON.parse(localStorage.getItem('profile'))?.user:null,
           cards:localStorage.getItem('cards')?JSON.parse(localStorage.getItem('cards')):[],
+          level:localStorage.getItem('level')?JSON.parse(localStorage.getItem('level')):3,
           reveals:localStorage.getItem('reveals')?JSON.parse(localStorage.getItem('reveals')):[],
           match:localStorage.getItem('match')?JSON.parse(localStorage.getItem('match')):[],
           users:localStorage.getItem('users')?JSON.parse(localStorage.getItem('users')):[],

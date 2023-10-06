@@ -7,7 +7,7 @@ const Navbar = () => {
     const dispatch=useDispatch()
     const navigate=useNavigate()
   return (
-    <div className="p-8 sticky top-0 z-10 w-full px-6 py-0 pr-12 flex justify-between items-center border-b-2 mb-4">
+    <div className="p-8 sticky top-0 z-10 w-full px-6 py-0 pr-12 flex justify-between items-center border-b-2 mb-4 bg-slate-900">
        <img src={logo} alt="logo" className='w-[100px]'/>
 
       <button 

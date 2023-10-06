@@ -3,6 +3,7 @@ export const SET_ERROR="SET_ERROR"
 export const AUTH="AUTH"
 export const LOGOUT="LOGOUT"
 export const SET_CARDS="SET_CARDS"
+export const SET_LEVEL="SET_LEVEL"
 export const SET_REVEALS="SET_REVEALS"
 export const SET_MATCH="SET_MATCH"
 export const CLEAR_GAME='CLEAR_GAME'
