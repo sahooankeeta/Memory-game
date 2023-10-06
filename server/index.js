@@ -20,7 +20,7 @@ let level=3
 app.use(express.json())
 app.use(cors());
 const socketIO = new Server(http, {
-  origins:'*'
+  origin:'*'
 });
 const shuffle=(arr)=>{
   return arr.sort((a,b)=>Math.random()-0.5)
