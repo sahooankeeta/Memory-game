@@ -7,7 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import openSocket from 'socket.io-client';
 const URL = process.env.REACT_APP_ENV=== 'production' ? undefined :process.env.REACT_APP_API
-const socket = openSocket(URL, { transports : ['websocket'] });
+const socket = openSocket.connect(process.env.REACT_APP_API, { transports : ['websocket'] });
 
 const App=()=>{
   const user=useSelector(state=>state.authData)
