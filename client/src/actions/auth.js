@@ -15,7 +15,7 @@ export const login = (formData) => async (dispatch) => {
         dispatch({ type: actionType.SET_ERROR, payload:message });
     }
     } catch (error) {
-      //console.log(error);
+      
       console.log("error",error.message)
     }
     dispatch({type:actionType.SET_LOADING,payload:false})
@@ -36,7 +36,7 @@ export const signup = (formData) => async (dispatch) => {
       
   
     } catch (error) {
-      //console.log(error);
+      
       console.log("error",error.message)
     }
     dispatch({type:actionType.SET_LOADING,payload:false})
@@ -55,7 +55,6 @@ export const resetPassword = (formData) => async (dispatch) => {
     
 
   } catch (error) {
-    //console.log(error);
     console.log("error",error.message)
   }
   dispatch({type:actionType.SET_LOADING,payload:false})

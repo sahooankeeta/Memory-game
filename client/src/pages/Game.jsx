@@ -8,14 +8,14 @@ const Game=({socket})=>{
   const dispatch=useDispatch()
   const navigate=useNavigate()
   const {authData:user,cards=[],reveals=[],match=[],users=[],level=3}=useSelector(state=>state)
-   //console.log(level)
+   
    const [turnIndex,setTurnIndex]=useState(-1)
    const [showConfetti,setShowConfetti]=useState(false)
    const [isGameOver,setIsGameOver]=useState(false)
    const [gameOverText,setGameOverText]=useState()
    const [askRestart,setAskRestart]=useState(false)
    const [copied,setCopied]=useState(false)
-   //console.log(gameOverText)
+   
      const handleClick=(card)=>{
       if(turnIndex!==-1 )
       socket.emit('flip_card',{card,room,name:user.name})
@@ -31,10 +31,10 @@ const Game=({socket})=>{
          setTimeout(()=>{
            let card1=reveals[0].split('-')
            let card2=card.split('-')
-           //console.log(card1,card2)
+           
            if(card1[0]===card2[0])
             {
-             // console.log("MATCH")
+             
               if(turnIndex>-1)
               socket.emit("update_points",{userId:user._id,room,name:user.name})
                dispatch(setMatch([...match,+card1[1],+card2[1]]))
@@ -58,10 +58,7 @@ const Game=({socket})=>{
       }
      }
      const restart=()=>{
-      //console.log('restart clicked')
       socket.emit('restart',{room})
-      // let t=shuffle(items).slice(0,level)
-      // setCards(shuffle([...t,...t]))
       
      }
      const handleGameOver=()=>{
@@ -76,13 +73,11 @@ const Game=({socket})=>{
     navigate("/")
      }
      const handlePermission=(value)=>{
-      //console.log("permission",value)
+      
       socket.emit("permission_response",{room,response:value})
        setAskRestart(false)
      }
 
- // console.log(turnIndex)
-  // console.log(cards)
  useEffect(()=>{
   if(isGameOver)
   {if(users[0].points>users[1].points)
@@ -95,11 +90,11 @@ const Game=({socket})=>{
  
  useEffect(() => {
   socket.on("turn",(data)=>{
-    //console.log(data)
+    
     setTurnIndex(data.turnIndex)
   })
   socket.on('message', (data) => {
-    //console.log(data);
+    ;
     if(data.cards?.length>0)
     {
      dispatch(setCards(data.cards))
@@ -107,11 +102,11 @@ const Game=({socket})=>{
     }
   });
   socket.on("set_players",(data)=>{
-   // console.log("players",data)
+   
     dispatch(initialPoints(data))
   })
  socket.on('flip_card_response',(data)=>{
-  //console.log(data)
+  
   handleReveal(data.card)
  })
  socket.on('switch_turn_response',(data)=>{
@@ -121,12 +116,11 @@ const Game=({socket})=>{
   setTurnIndex(-1)
  })
  socket.on("update_points_response",(data)=>{
-  //console.log(data)
-      
+  
   dispatch(setPoints(data))
  })
  socket.on('restart_permission',(data)=>{
- // console.log(data)
+
   setAskRestart(true)
  })
  socket.on('get_cards_response',(data)=>{
