@@ -94,7 +94,7 @@ const Game=({socket})=>{
     setTurnIndex(data.turnIndex)
   })
   socket.on('message', (data) => {
-    ;
+    
     if(data.cards?.length>0)
     {
      dispatch(setCards(data.cards))

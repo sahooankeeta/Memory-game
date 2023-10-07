@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import openSocket from 'socket.io-client';
-const URL = process.env.REACT_APP_ENV=== 'production' ? undefined :process.env.REACT_APP_API
+
 const socket = openSocket(process.env.REACT_APP_API, { 
   transports : ['websocket'],
 });

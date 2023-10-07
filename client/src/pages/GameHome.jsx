@@ -12,9 +12,13 @@ const GameHome = ({socket}) => {
       navigate(`/game/${roomId}`)
     }
     }
+
+    // CREATE NEW GAME ROOM
      const handleStart=()=>{
       gotoRoom(''+Date.now())
      }
+
+     // JOIN GAME ROOM
       const handleJoin=()=>{
        gotoRoom(roomId)
       }
