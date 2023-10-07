@@ -1,23 +1,38 @@
 const { Server } = require('socket.io'); 
 const {items}=require("./data")
+const generateLevel=()=>{
+    return Math.floor(Math.random()*3)+3
+    }
+   const shuffle=(arr)=>{
+    return arr.sort((a,b)=>Math.random()-0.5)
+  }
+const getCards=(level)=>{
+    let t=shuffle(items).slice(0,level)
+    let cards=(shuffle([...t,...t]))
+    return cards
+  }
+const sendCards=({socketIO,room,players})=>{
+    level=generateLevel()
+    cards=getCards(level)
+    socketIO.sockets.in(room).emit('cards', {
+     message: `cards`,
+     timestamp:new Date(),
+     cards,
+     level,
+     players
+   });
+}
+const getRoomUsers=({allUsers,room})=>{
+    let roomUsers=allUsers.filter(i=>i.room==room)
+    return roomUsers
+}
 module.exports.gameServer=(socketServer)=>{
     const socketIO = new Server(socketServer, {
         cors:{
          origin:process.env.CLIENT_URL, 
         },
        })
-       let level=3
-        function generateLevel(){
-        return Math.floor(Math.random()*3)+3
-        }
-       const shuffle=(arr)=>{
-        return arr.sort((a,b)=>Math.random()-0.5)
-      }
-      const getCards=(level)=>{
-        let t=shuffle(items).slice(0,level)
-        let cards=(shuffle([...t,...t]))
-        return cards
-      }
+       
        let allUsers=[]
        socketIO.on('connection', (socket) => {
         console.log(`user just connected!`);
@@ -29,11 +44,10 @@ module.exports.gameServer=(socketServer)=>{
           if(allUsers.findIndex(i=>i.userId === userId)==-1)
           allUsers.push({userId,name,room})
           
-          let roomUsers=allUsers.filter(i=>i.room==room)
           
-          socketIO.sockets.in(room).emit('set_players', roomUsers);
           
-          let cards=[]
+          socketIO.sockets.in(room).emit('set_players', getRoomUsers({allUsers,room}));
+          
          const clientSize=socketIO.sockets.adapter.rooms.get(room)?.size || 0
          if(clientSize==1)
           socketIO.to(room).emit('turn',{
@@ -42,31 +56,27 @@ module.exports.gameServer=(socketServer)=>{
         })
          if(clientSize==2)
          {
-          level=generateLevel()
-           cards=getCards(level)
-          
+            sendCards({socketIO,room,players:getRoomUsers({allUsers,room})})
          }
           
-          socket.to(room).emit('message', {
+          socket.to(room).emit('join_room_response', {
             message: `${name} has joined the room`,
-            timestamp:new Date(),
-            cards,
-            level
+            timestamp:new Date()
           });
           
-          socket.emit('message', {
-            message: `Welcome ${name}`,
-            timestamp:new Date(),
-            cards,
-            level
-          });
+        //   socket.emit('message', {
+        //     message: `Welcome ${name}`,
+        //     timestamp:new Date(),
+        //     cards,
+        //     level
+        //   });
         });
         socket.on('leave_room',(data)=>{
           const {room,name,userId}=data
           socket.leave(room)
           allUsers=allUsers.filter(i=>i.userId!==userId)
           
-          socket.to(room).emit('message', {
+          socket.to(room).emit('leave_room_response', {
             message: `${name} has left the room`,
             timestamp:new Date(),
             
@@ -90,12 +100,8 @@ module.exports.gameServer=(socketServer)=>{
          
           const {room,response}=data
           if(response)
-          {level=generateLevel()
-          socketIO.sockets.in(room).emit('get_cards_response', {
-            message: `new cards`,
-            cards:getCards(level),
-            level
-          });
+          {
+            sendCards({socketIO,room,players:getRoomUsers({allUsers,room})})
         }
         })
         socket.on('switch_turn',(data)=>{

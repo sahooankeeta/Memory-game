@@ -2,7 +2,8 @@ import { useState,useEffect } from 'react';
 import Confetti from 'react-confetti'
 import { useSelector,useDispatch } from 'react-redux';
 import { useNavigate,useParams } from 'react-router-dom';
-import { setCards,setLevel,setReveals,setMatch,clearGame,setPoints, initialPoints } from '../actions/auth';
+import { setCards,setLevel,setReveals,setMatch,clearGame,setPoints, initialPoints } from '../actions/auth'
+import notify from '../helpers/notify';
 const Game=({socket})=>{
   const {roomId:room}=useParams()
   const dispatch=useDispatch()
@@ -77,7 +78,15 @@ const Game=({socket})=>{
       socket.emit("permission_response",{room,response:value})
        setAskRestart(false)
      }
-
+    const handleResetGame=(data)=>{
+     dispatch(setCards(data.cards))
+     dispatch(setLevel(data.level))
+     dispatch(setReveals([]))
+     dispatch(setMatch([]))
+     dispatch(initialPoints(data.players))
+     setIsGameOver(false)
+     setGameOverText(null)
+    }
  useEffect(()=>{
   if(isGameOver)
   {if(users[0].points>users[1].points)
@@ -93,13 +102,10 @@ const Game=({socket})=>{
     
     setTurnIndex(data.turnIndex)
   })
-  socket.on('message', (data) => {
+  socket.on('cards', (data) => {
     
-    if(data.cards?.length>0)
-    {
-     dispatch(setCards(data.cards))
-     dispatch(setLevel(data.level))
-    }
+     handleResetGame(data)
+    
   });
   socket.on("set_players",(data)=>{
    
@@ -123,23 +129,24 @@ const Game=({socket})=>{
 
   setAskRestart(true)
  })
- socket.on('get_cards_response',(data)=>{
-  setIsGameOver(false)
-  dispatch(setCards(data.cards))
-  dispatch(setLevel(data.level))
-  setGameOverText(null)
- })
 
+ socket.on('leave_room_response',(data)=>{
+  notify("info",data.message)
+ })
+ socket.on('join_room_response',(data)=>{
+  notify("info",data.message)
+ })
 // Remove event listener on component unmount
   return () => {
-    socket.off('message');
+    socket.off('cards');
     socket.off('flip_card_response');
     socket.off('turn');
     socket.off('set_players');
     socket.off('switch_turn_response');
     socket.off('restart_permission')
-    socket.off('get_cards_response')
     socket.off("update_points_response")
+    socket.off("leave_room_response")
+    socket.off("join_room_response")
   }
 }, [socket,reveals,match,turnIndex,askRestart,cards,users,gameOverText]);
   return (
